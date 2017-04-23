@@ -1,0 +1,61 @@
+'''
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+If you were only permitted to complete at most one transaction 
+(ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+Example 1:
+Input: [7, 1, 5, 3, 6, 4]
+Output: 5
+
+max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)
+Example 2:
+Input: [7, 6, 4, 3, 1]
+Output: 0
+
+In this case, no transaction is done, i.e. max profit = 0.
+'''
+'''
+解题思路method1：
+最适合卖出的日期一定是利润最高的日期，故寻找数组中最大的差值（只能后边的元素 减去 前边的元素）
+（1）判断数组是否为空
+（2）定义数组中最小值（开始假设为第一天），和利润（开始假设为0）
+（3）遍历数组，比较当前元素和最小值，若小于最小值，则更新最小值；
+    否则与最小值求差，与利润做比较，若大于利润，则更新利润
+（4）遍历所有元素后，得到的利润即为最大利润
+'''
+
+############ Python Code method1 #####################
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices) == 0: return 0
+        
+        minp,profit = prices[0],0
+        
+        for p in prices:
+            if p <minp:
+                minp = p
+            elif p - minp > profit:
+                profit = p - minp
+        return profit
+ '''
+ 解题思路method2：
+ 暴力求解：
+ 将 当前元素 和 该元素后所有元素 做差，将差值保存在列表中，依次遍历所有元素，取得所有差值，在找出其中最大的差值即为所求。
+ '''
+############ Python Code method2 #####################
+
+   def maxProfit(self, prices):
+        daynum = len(prices)
+        dif = [0]
+        for i in range(daynum-1):
+            for j in range(i+1,daynum):
+                dif.append(prices[j]-prices[i])
+        
+        return max(dif)
+        
+        
