@@ -1,0 +1,55 @@
+'''
+Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+
+For example,
+Given nums = [0, 1, 3] return 2.
+
+Note:
+Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
+'''
+
+'''
+解题思路：method1
+先给数组排序，然后再分三种情况考虑：
+（1）如果开头缺少零，则缺失的数一定为0
+（2）如果中间缺少某个数：从位置为1的数开始遍历，考虑该数和其前面的数的差值是否为2，若是，则该数前面缺少一数
+（3）如果结尾缺少一个数：当遍历完所有的数后没有发现缺失项，则一定是缺少尾项
+'''
+
+################## Python code  method1 ##########################
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        ## 先将列表从小到大排序
+        nums.sort()
+        
+        # case1：开头缺少0
+        if nums[0] != 0: return 0
+        
+        ## case2:中间缺失某些数
+        length = len(nums)
+        for i in range(1,length):   ## 第一个数和最后一个数 肯定是没问题的
+            if nums[i] == nums[i-1]+2:
+                return nums[i] - 1
+                
+       ### case3:中间完全有序，那就结尾缺少最后一项
+        return nums[-1]+1
+        
+     
+'''
+解题思路：method2
+利用等差数列求和公式：
+完整的数列应该是：0，1，2.....n，求和结果是 sperfect = n(n+1)/2 ；
+如果数组 nums 中缺少一个数值，则数组求和结果 sum(nums) 一定比 sperfect 少该数的大小
+'''
+################## Python code  method2 ##########################
+     def missingNumber(self, nums):
+         n = len(nums)
+         return n * (n+1) / 2 - sum(nums)
+
+
+
+
