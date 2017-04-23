@@ -1,0 +1,39 @@
+'''
+Given an index k, return the kth row of the Pascal's triangle.
+
+For example, given k = 3,
+Return [1,3,3,1].
+
+Note:
+Could you optimize your algorithm to use only O(k) extra space?
+'''
+'''
+解题思路：
+Pascal's Triangle 原理：每个数字等于上一行的左右两个数字之和；第n行的数字有n项。
+由当前行 row1 计算下一行 row2 的方法为：row2 = ( [0]+row1 ) + ( row1 + [0] )
+'''
+#############  Python Code ########################
+##### 如何利用原列表更新列表（不保留原列表的数据）？？###
+
+class Solution(object):
+    def getRow(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        row = [1]
+        for i in range(rowIndex):
+            templist = []
+            for x,y in zip([0]+row,row+[0]):
+               templist.append(x+y) 
+            row = templist[:] ## 保存当前行的数据，便于求解下一行时使用
+        return row
+        
+        
+########### 改进方法，语句更精炼 ###############
+    def getRow(self, rowIndex):
+        row = [1]
+        for i in range(rowIndex):
+          row = [x+y for x,y in zip([0]+row,row+[0])] ##1.得到每一行数的方法 2.列表推导式，不断更新列表
+        return row
+        
