@@ -9,7 +9,16 @@ Here are few examples.
 [1,3,5,6], 0 → 0
 '''
 
-
+'''
+做题思路：
+（1）采用折半查找的方法，由于数组已排好序，故容易指定数组最小值 smaller，最大值 larger,
+    再取中间值 middle = (smaller+larger)/2 与所给的值target 进行比较；
+（2）若 middle = target 表示找到了该目标值
+    若 middle > target ,用 middle-1 更新最大值
+    若 middle < target ,用 middle+1  更新最小值
+（3）不断执行（1）（2），直到找到 target 值；或者 smaller > larger 结束循环，返回 smaller 值即为需要插入的位置
+'''
+############### Python 代码如下：##############################
 class Solution(object):
     def searchInsert(self, nums, target):
         """
