@@ -6,11 +6,17 @@ Input: [1,1,0,1,1,1]
 Output: 3
 Explanation: The first two digits or the last three digits are consecutive 1s.
     The maximum number of consecutive 1s is 3.
-Note:
 
+Note:
 The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 '''
+'''
+做题思路：
+检测每一段连续1的个数，将其分别记录到一个数组中，最后挑出数组中最大的数，即为连续1的最大数
+'''
+
+################## Python代码 #####################################
 class Solution(object):
     def findMaxConsecutiveOnes(self, nums):
         """
