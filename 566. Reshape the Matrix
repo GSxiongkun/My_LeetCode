@@ -1,0 +1,74 @@
+'''
+In MATLAB, there is a very useful function called 'reshape', 
+which can reshape a matrix into a new one with different size but keep its original data.
+
+You're given a matrix represented by a two-dimensional array, 
+and two positive integers r and c representing the row number and column number of the wanted reshaped matrix, respectively.
+
+The reshaped matrix need to be filled with all the elements of the original matrix in the same row-traversing order as they were.
+
+If the 'reshape' operation with given parameters is possible and legal, output the new reshaped matrix;
+Otherwise, output the original matrix.
+
+Example 1:
+Input: 
+nums = 
+[[1,2],
+ [3,4]]
+r = 1, c = 4
+
+Output: 
+[[1,2,3,4]]
+Explanation:
+The row-traversing of nums is [1,2,3,4].
+The new reshaped matrix is a 1 * 4 matrix, fill it row by row by using the previous list.
+
+Example 2:
+Input: 
+nums = 
+[[1,2],
+ [3,4]]
+r = 2, c = 4
+
+Output: 
+[[1,2],
+ [3,4]]
+Explanation:
+There is no way to reshape a 2 * 2 matrix to a 2 * 4 matrix. So output the original matrix.
+Note:
+The height and width of the given matrix is in range [1, 100].
+The given r and c are all positive.
+'''
+
+
+'''
+解题思路：
+step1:首先判断矩阵改变前后元素是否守恒，如果不守恒，输出原来矩阵；
+step2:将原始矩阵所有元素集中放到一个列表中
+step3:按照 新输入的 （行 列） 的要求，重新分配列表，得到新矩阵
+'''
+
+############## python code #################
+class Solution(object):
+    def matrixReshape(self, nums, r, c):
+        """
+        :type nums: List[List[int]
+        :type r: int
+        :type c: int
+        :rtype: List[List[int]]
+        """
+        sr = len(nums) #原始矩阵的行数
+        sc = len(nums[0]) #原始矩阵的列数
+        
+        if sr * sc != r * c:
+            return nums
+            
+        numsAll = [] #将所有元素集中到一个列表中
+        for i in nums:
+            numsAll.extend(i) # i 为一个sc长度的列表
+        
+        numsOut = []
+        for i in range(r): #重新分配元素
+            numsOut.append( numsAll[i*c:i*c+c] ) # 列的分配
+            
+        return numsOut
