@@ -1,0 +1,51 @@
+'''
+Given an array of 2n integers, your task is to group these integers into n pairs of integer, 
+say (a1, b1), (a2, b2), ..., (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possible.
+
+Example 1:
+Input: [1,4,3,2]
+
+Output: 4
+Explanation: n is 2, and the maximum sum of pairs is 4.
+Note:
+1. n is a positive integer, which is in the range of [1, 10000].
+2. All the integers in the array will be in the range of [-10000, 10000].
+'''
+
+'''
+题目解读：
+The goal is to get the largest possible sum of MIN of the pair.
+So for the example [1, 2, 3, 4], the best pairs are (1, 2) and (3, 4).
+min(1, 2) + min(3, 4) = 1 + 3 = 4
+
+Just try another one like (1, 4) and (2, 3)
+step one: min(1, 4) = 1, min(2, 3) = 2;
+step two: add the mins, sum = 1 + 2 = 3;
+step three: compare this to our best pairs, 3 < 4.
+Obviously, 4 is larger, so (1, 2) and (3, 4) are better pairs than (1, 4) and (2, 3).
+'''
+
+'''
+解题思路：
+满足目标最好的组合是：将较小的数组合在一块，较大的数组合在一块;
+这样 min(ai,bi) 可以取到大数组合中的数，进而保证结果sum较大；
+
+step1: 将数组排序
+step2：采用[(a1,a2),(a3,a4)……(a2n-1,a2n)]的组合方式，能保证“不浪费大数”
+step3：sum = a1 + a3 + …… + a2n-1
+'''
+
+####################  Python code ###############
+class Solution(object):
+    def arrayPairSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        length = len(nums)
+        nums.sort()
+        sums = 0
+        
+        for i in range(0,length,2):
+            sums += nums[i]
+        return sums
