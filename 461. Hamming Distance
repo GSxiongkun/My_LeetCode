@@ -1,0 +1,46 @@
+'''
+The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+Given two integers x and y, calculate the Hamming distance.
+
+Note:
+0 ≤ x, y < 231.
+
+Example:
+
+Input: x = 1, y = 4
+
+Output: 2
+
+Explanation:
+1   (0 0 0 1)
+4   (0 1 0 0)
+       ↑   ↑
+
+The above arrows point to positions where the corresponding bits are different.
+'''
+
+'''
+解题思路：
+step1: 取 x 和 y 的异或，结果为一十进制的整数；
+step2: 将结果变为二进制，统计 1 的个数；
+
+注意： 1.异或：相同为0，相异为1，x和y 对应位数的值不同，异或后该位置为1，为一个汉明距离
+      2.十进制变为二进制的标准库函数为 bin(int) = "二进制字符串" ；例 bin(5) = '0b101'，前面有二进制标志“0b”
+'''
+
+class Solution(object):
+    def hammingDistance(self, x, y):
+        """
+        :type x: int
+        :type y: int
+        :rtype: int
+        """
+        result = x ^ y  #取两个数的异或，“相同为0，相异为1”
+        st = bin(result) #变十进制为二进制字符串,位数为1表示x,y在该位置的数值不同
+        lis =list(st)
+        count = 0
+        for i in lis: #统计 1 的个数,即为汉明距离
+            if i == '1':
+                count +=1
+        return count
