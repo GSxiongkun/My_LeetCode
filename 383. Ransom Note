@@ -1,0 +1,46 @@
+'''
+Given an arbitrary ransom note string and another string containing letters from all the magazines, 
+write a function that will return true if the ransom note can be constructed from the magazines ; 
+otherwise, it will return false.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Note:
+You may assume that both strings contain only lowercase letters.
+
+canConstruct("a", "b") -> false
+canConstruct("aa", "ab") -> false
+canConstruct("aa", "aab") -> true
+'''
+'''
+题目解读：
+canConstruct(ransomNote, magazine)
+判断组成 ransomNote 的字母是否在 magazine 中都有；
+且在 magazine 中每个字母都只能用一次；也就是说，若 ransomNote 中某个字母出现多次，则在magazine中该字母至少也要出现这些次
+'''
+
+'''
+解题思路：
+step1:将字符串变为list，便于操作
+step2：挨个判断 ransomNote中每个字母是否在magazine中都有对应字母；
+      若有，在magazine中将该字母去除掉，剩下的列表再次参与比较
+      （magazine中每个字母只能用一次，一旦被用于对应了，就不能参与下一次的对应）
+      若无，ransomNote中含有magazine中不含的字母，返回False
+
+'''
+################ Python code ##################
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        sl1 = list(ransomNote)
+        sl2 = list(magazine)
+        for i in sl1:
+            if i in sl2:
+                sl2.remove(i) # magazine中每个字母只能用一次；字母 i 被用了，就移除 sl2, 更新 sl2
+            else:
+                return False 
+        return True #判断完 ransomNote 中所有字母，都在magazine 中有对应，返回True
