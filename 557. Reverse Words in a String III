@@ -1,0 +1,30 @@
+'''
+Given a string, you need to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+Example 1:
+Input: "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+Note: In the string, each word is separated by single space and there will not be any extra space in the string.
+'''
+
+'''
+解题思路：
+step1：把句子拆分为单词列表；
+step2: 把每个单词拆分为字符列表，反转，再组合成单词
+step3: 把反转后的单词组合成句子
+'''
+
+################# python code #######################
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        lst1 = s.split() # 切分句子，得到单词列表，每个元素为单词字符串
+        lst2 = []
+        for i in lst1:
+            li = list(i) # 每个单词拆分为字符列表
+            li.reverse() # 翻转字符列表
+            lst2.append(''.join(li)) #翻转后组成新字符串，添加到另外一个列表中
+        return ' '.join(lst2) # 返回新字符串组成的句子
