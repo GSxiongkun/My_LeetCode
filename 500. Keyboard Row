@@ -1,0 +1,51 @@
+'''
+Given a List of words, return the words that can be typed using letters of alphabet on only one row's of American keyboard 
+like the image below.
+
+
+American keyboard(就是一般键盘的字母排序)
+
+
+Example 1:
+Input: ["Hello", "Alaska", "Dad", "Peace"]
+Output: ["Alaska", "Dad"]
+Note:
+You may use one character in the keyboard more than once.
+You may assume the input string will only contain letters of alphabet.
+'''
+
+'''
+解题思路：
+step1:将键盘每一行的字符都存储为一个集合，作为比对集合
+step2：从所给单词集合中取出一个单词（将其变成小写形式，便于比较）
+step3：将单词拆分为字符列表，根据第一个字符判断该单词在键盘中的哪一行
+step4: 确定单词的行后，再判断该单词的其他字符是否都在该行
+        若所有字符都在键盘的一行，存下这个单词
+'''
+
+####################### python code #######################
+class Solution(object):
+    def findWords(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        row1 = set(['q','w','e','r','t','y','u','i','o','p'])
+        row2 = set(['a','s','d','f','g','h','j','k','l'])
+        row3 = set(['z','x','c','v','b','n','m'])
+        
+        liout =[]
+        for i in words:
+            lowi = i.lower() #将单词转换为小写,返回副本
+            liword = list(lowi) #转换为字符元素列表
+            
+            if liword[0] in row1:
+                if set(liword) <= row1 : #若果集合set(liword)是row1 的子集，则可以一行写完
+                    liout.append(i)
+            elif liword[0] in row2:
+                if set(liword) <= row2 : #由于set不支持索引，所以需要在判断第一个字母在哪一行后再将liword 变为set
+                    liout.append(i)
+            elif liword[0] in row3:
+                if set(liword) <= row3 : #若果集合set(liword)是row3 的子集，则可以一行写完
+                    liout.append(i)
+        return liout
