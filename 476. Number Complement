@@ -1,0 +1,41 @@
+'''
+Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.
+
+Note:
+The given integer is guaranteed to fit within the range of a 32-bit signed integer.
+You could assume no leading zero bit in the integer’s binary representation.
+Example 1:
+Input: 5
+Output: 2
+Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+
+Example 2:
+Input: 1
+Output: 0
+Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
+'''
+
+'''
+解题思路：
+step1：将十进制数转为二进制；
+step2:将二进制每一位都取反
+step3:将取反后的二进制再转为十进制
+'''
+
+############# python code ################
+class Solution(object):
+    def findComplement(self, num):
+        """
+        :type num: int
+        :rtype: int
+        """
+        bins = bin(num) #十进制转二进制,“0bxxx”
+        li1 = list(bins) # 转换为列表形式，便于迭代判断
+        li2 = []
+        for i in li1[2:len(li1)]:
+            if i == '1':
+                li2.append('0') # li2中存的字符元素，这样才能使用join函数连接为字符串
+            elif i == '0':
+                li2.append('1')
+        stout = ''.join(li2) # ''.join(sequence为字符元素列表)
+        return int(stout,2) # int(表示数字的字符串，该字符串的基数)，例 int（'101',2）= 5
