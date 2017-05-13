@@ -1,0 +1,24 @@
+'''
+Write a function that takes a string as input and returns the string reversed.
+
+Example:
+Given s = "hello", return "olleh".
+'''
+
+'''
+解题思路：
+step1：先将字符串拆分为列表
+step2：列表反转
+step3：字符元素列表转换为字符串
+'''
+
+######### python code ###########
+class Solution(object):
+    def reverseString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        li = list(s)
+        li.reverse()
+        return''.join(li)
