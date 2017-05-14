@@ -1,0 +1,45 @@
+'''
+Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array 
+such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
+'''
+
+'''
+解题思路：
+方法一：暴力对比
+step1：取出数组中第一个数，分别与该数后面所有数对比，若有满足条件的返回True
+step2：分别取第二个、第三个数.....重复step1
+缺点：复杂度太高，算法超时
+
+方法二：采用字典
+step1：将数组的数值作为字典的 key，对应的角标作为字典的 value
+step2: 用nums[i] in dic 判断nums[i] 是否是dic 的key,即判断该数值是否出现过
+       若出现过，找出其对应的角标 j ，与 i 做差和 k 比较
+       若没有出现过，加入到字典中
+'''
+
+#################  python code ##################
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        ### 暴力比对 ： 时间超时 ##
+        # length = len(nums)
+        # for i in range(length):
+        #     for j in range(i+1,length):
+        #         if nums[i] == nums[j]:
+        #             if abs(i-j) <= k:
+        #                 return True
+        # return False
+        
+        #### 采用 字典 的方法### 
+        length = len(nums)
+        dic ={}
+        for i in range(length):
+            if nums[i] in dic: #检测 dic 的 "key" 中是否含有 nums[i]
+                if abs(i-dic[nums[i]]) <= k:
+                    return True
+            dic[nums[i]] = i  #将nums[i]作为键，角标 i 作为值
+        return False
